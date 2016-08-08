@@ -1,0 +1,8 @@
+/.idea
+/cache
+log.txt
+doc/
+*~
+.DS_Store
+.secret
+Gemfile.lock
