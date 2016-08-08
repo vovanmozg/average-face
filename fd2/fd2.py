@@ -18,12 +18,18 @@ import sys
 import os
 import dlib
 import glob
+import cv2
+import numpy
 from skimage import io
 
+# Draw a point
+def draw_point(img, p, color ) :
+    cv2.circle( img, p, 0, color )
 
 
 predictor_path = '/Users/vovanmozg/Downloads/bigdata/shape_predictor_68_face_landmarks.dat'
 face_path = '/Users/vovanmozg/Downloads/bigdata/socialfaces/3_files/images(19).jpg'
+face_path = '/Users/vovanmozg/Downloads/bigdata/socialfaces/2_files/images(115).jpg'
 
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor(predictor_path)
@@ -50,11 +56,14 @@ for k, d in enumerate(dets):
         k, d.left(), d.top(), d.right(), d.bottom()))
     # Get the landmarks/parts for the face in box d.
     shape = predictor(img, d)
-    print(shape.parts)
+    #print(numpy.matrix([[p.x, p.y] for p in shape.parts()]))
+
+    for p in shape.parts():
+        draw_point(img, (p.x, p.y), (255,0,0))
     print("Part 0: {}, Part 1: {} ...".format(shape.part(0),
                                               shape.part(1)))
 
-
+io.imsave('out.png',img)
 
     # Draw the face landmarks on the screen.
     #win.add_overlay(shape)
