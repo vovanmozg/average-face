@@ -3,6 +3,7 @@
 # Copyright (c) 2016 Satya Mallick <spmallick@learnopencv.com>
 # All rights reserved. No warranty, explicit or implicit, provided.
 
+# source - https://github.com/spmallick/learnopencv/tree/master/FaceAverage
 
 import os
 import cv2
@@ -224,7 +225,7 @@ def warpTriangle(img1, img2, t1, t2) :
 
 if __name__ == '__main__' :
     
-    path = '/Users/vovanmozg/Downloads/bigdata/socialfaces/2'
+    path = '/Users/vovanmozg/Downloads/bigdata/socialfaces/1'
 
     # Dimensions of output image
     w = 600;
