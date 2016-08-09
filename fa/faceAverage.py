@@ -25,6 +25,8 @@ def calcPoints(path) :
     # second argument indicates that we should upsample the image 1 time. This
     # will make everything bigger and allow us to detect more faces.
     dets = detector(img, 1)
+    if dets == 0 :
+        return False;
 
     print("Number of faces detected: {}".format(len(dets)))
     points = [];
@@ -62,20 +64,29 @@ def readImages(path) :
     
     #Create array of array of images.
     imagesArray = [];
+    pointsArray = [];
     
     #List all files in the directory and read points from text files one by one
     for filePath in sorted(os.listdir(path)):
         if filePath.endswith(".jpg"):
-            # Read image found.
-            img = cv2.imread(os.path.join(path,filePath));
 
-            # Convert to floating point
-            img = np.float32(img)/255.0;
-
-            # Add to array of images
-            imagesArray.append(img);
+            #Create an array of points.
+            points = calcPoints(os.path.join(path, filePath))          
             
-    return imagesArray;
+            if points :
+                # Store array of points
+                pointsArray.append(points)
+
+                # Read image found.
+                img = cv2.imread(os.path.join(path,filePath));
+
+                # Convert to floating point
+                img = np.float32(img)/255.0;
+
+                # Add to array of images
+                imagesArray.append(img);
+            
+    return imagesArray, pointsArray;
                 
 # Compute similarity transform given two sets of two points.
 # OpenCV requires 3 pairs of corresponding points.
@@ -213,18 +224,17 @@ def warpTriangle(img1, img2, t1, t2) :
 
 if __name__ == '__main__' :
     
-    path = '/Users/vovanmozg/Downloads/bigdata/socialfaces/3_files'
-    path = 'fotos'
+    path = '/Users/vovanmozg/Downloads/bigdata/socialfaces/2'
 
     # Dimensions of output image
     w = 600;
     h = 600;
 
     # Read points for all images
-    allPoints = readPoints(path);
+    #allPoints = readPoints(path);
     
     # Read all images
-    images = readImages(path);
+    images, allPoints = readImages(path);
     
     # Eye corners
     eyecornerDst = [ (np.int(0.3 * w ), np.int(h / 3)), (np.int(0.7 * w ), np.int(h / 3)) ];
@@ -313,5 +323,10 @@ if __name__ == '__main__' :
     output = output / numImages;
 
     # Display result
-    cv2.imshow('image', output);
-    cv2.waitKey(0);
+    #cv2.imshow('image', output);
+    #cv2.waitKey(0);
+
+    #output = (output * 255).round().astype(np.uint8)
+    output = cv2.cvtColor(output, cv2.COLOR_BGR2RGB)
+
+    io.imsave('out.png', output)
