@@ -5,6 +5,11 @@
 
 # source - https://github.com/spmallick/learnopencv/tree/master/FaceAverage
 
+# faces
+# - https://www.google.ru/search?q=%D0%B5%D0%B3%D0%BE%D1%80+site:vk.com&newwindow=1&biw=1680&bih=846&source=lnms&tbm=isch&sa=X&ved=0ahUKEwiQ_7vswbPOAhXMwBQKHenHCmEQ_AUIBigB#q=%D0%B5%D0%B3%D0%BE%D1%80+site:vk.com&newwindow=1&tbm=isch&tbs=itp:face
+# - https://www.google.ru/search?q=%D0%B5%D0%B3%D0%BE%D1%80+site:ok.ru&newwindow=1&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjQ7ovfwLPOAhUE0RQKHbEuBLEQ_AUICCgB&biw=1680&bih=890#newwindow=1&tbs=itp:face&tbm=isch&q=%D0%B5%D0%B3%D0%BE%D1%80+%D0%B5%D0%B2%D0%B3%D0%B5%D0%BD%D0%B8%D0%B9:ok.ru
+# - https://www.google.ru/search?q=egor+site:facebook.com&newwindow=1&source=lnms&tbm=isch&sa=X&ved=0ahUKEwiYt4mewrPOAhWBPRQKHQ_RDKEQ_AUICCgB&biw=1680&bih=846&dpr=2#q=egor+site:facebook.com&newwindow=1&tbm=isch&tbs=itp:face 
+
 import os
 import cv2
 import numpy as np
@@ -26,7 +31,7 @@ def calcPoints(path) :
     # second argument indicates that we should upsample the image 1 time. This
     # will make everything bigger and allow us to detect more faces.
     dets = detector(img, 1)
-    if dets == 0 :
+    if len(dets) != 1 :
         return False;
 
     print("Number of faces detected: {}".format(len(dets)))
@@ -225,7 +230,7 @@ def warpTriangle(img1, img2, t1, t2) :
 
 if __name__ == '__main__' :
     
-    path = '/Users/vovanmozg/Downloads/bigdata/socialfaces/1'
+    path = '/Users/vovanmozg/Downloads/bigdata/socialfaces/angry1'
 
     # Dimensions of output image
     w = 600;
