@@ -230,7 +230,7 @@ def warpTriangle(img1, img2, t1, t2) :
 
 if __name__ == '__main__' :
     
-    path = '/Users/vovanmozg/Downloads/bigdata/socialfaces/angry1'
+    path = '/Users/vovanmozg/Downloads/bigdata/socialfaces/vovan'
 
     # Dimensions of output image
     w = 600;
