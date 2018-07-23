@@ -63,7 +63,7 @@ for k, d in enumerate(dets):
     print("Part 0: {}, Part 1: {} ...".format(shape.part(0),
                                               shape.part(1)))
 
-io.imsave('out.png',img)
+#io.imsave('out.png',img)
 
     # Draw the face landmarks on the screen.
     #win.add_overlay(shape)
